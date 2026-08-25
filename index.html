@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BIN Optimizer — Reclaim margin through intelligent BIN routing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F8FAFB; color: #0F2A47; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #0E7C5A; text-decoration: none; }
+  a:hover { color: #0F2A47; }
+  input { font-family: inherit; }
+  ::selection { background: #C7F0DF; }
+  @keyframes dashflow { to { stroke-dashoffset: -240; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes pulseRing { 0% { opacity: .55; transform: scale(.85); } 70% { opacity: 0; transform: scale(1.5); } 100% { opacity: 0; transform: scale(1.5); } }
+</style>
+</helmet>
+
+<div style="min-height:100vh;overflow-x:hidden">
+
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(248,250,251,.82);border-bottom:1px solid #E4E8ED">
+    <div style="max-width:1280px;margin:0 auto;padding:0 32px;min-height:72px;padding-top:12px;padding-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;color:#0F2A47">
+        <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#0F2A47,#1C4C7C)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5EE0AE" stroke-width="2.2" stroke-linecap="round"><path d="M3 17h4l3-10 3 6 2-3h6" /></svg>
+        </span>
+        <span style="font-size:17px;font-weight:600;letter-spacing:-.02em">BIN Optimizer</span>
+      </a>
+      <nav style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px">
+        <a href="#problem" style="font-size:14.5px;color:#5B6672" style-hover="color:#0F2A47">The problem</a>
+        <a href="#how" style="font-size:14.5px;color:#5B6672" style-hover="color:#0F2A47">How it works</a>
+        <a href="#analyzer" style="font-size:14.5px;color:#5B6672" style-hover="color:#0F2A47">BIN analyzer</a>
+        <a href="#platform" style="font-size:14.5px;color:#5B6672" style-hover="color:#0F2A47">Platform</a>
+        <a href="#start" style="display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:9px;background:#0F2A47;color:#fff;font-size:14.5px;font-weight:500;transition:transform .18s ease,background .18s ease" style-hover="background:#153B63;color:#fff;transform:translateY(-1px)">Book a call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="top" style="position:relative;background:radial-gradient(1100px 520px at 78% -8%,#E7F3FF 0%,rgba(231,243,255,0) 60%),linear-gradient(180deg,#FBFCFD 0%,#F8FAFB 100%);border-bottom:1px solid #E4E8ED">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px 100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:64px;align-items:center">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:9px;height:30px;padding:0 12px 0 10px;border:1px solid #D6E3EF;border-radius:999px;background:rgba(255,255,255,.7);font-size:12.5px;color:#3E5A78;letter-spacing:.01em">
+          <span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span>
+          Cost optimization for acquirers
+        </div>
+        <h1 style="margin:22px 0 0;font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-.035em;font-weight:600;text-wrap:balance">Your interchange costs<br />don't match the rate<br />you quoted.</h1>
+        <p style="margin:24px 0 0;max-width:520px;font-size:18.5px;line-height:1.55;color:#5B6672;text-wrap:pretty">BIN Optimizer reads cost at the BIN level and routes every transaction through its cheapest viable channel. The margin you were losing to blended pricing comes back.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+          <a href="#analyzer" style="display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 26px;border-radius:11px;background:#0F2A47;color:#fff;font-size:15.5px;font-weight:500;box-shadow:0 10px 26px -14px rgba(15,42,71,.75);transition:transform .18s ease,background .18s ease" style-hover="background:#153B63;color:#fff;transform:translateY(-2px)">Try the BIN analyzer</a>
+          <a href="#start" style="display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 26px;border-radius:11px;border:1px solid #CBD8E4;background:#fff;color:#0F2A47;font-size:15.5px;font-weight:500;transition:transform .18s ease,border-color .18s ease" style-hover="border-color:#0F2A47;color:#0F2A47;transform:translateY(-2px)">Schedule a call</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:30px;border-top:1px solid #E4E8ED">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;letter-spacing:-.02em">12–18%</div>
+            <div style="margin-top:5px;font-size:13.5px;color:#7A8794">routing cost reduction</div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;letter-spacing:-.02em">1.4M</div>
+            <div style="margin-top:5px;font-size:13.5px;color:#7A8794">BINs under coverage</div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;letter-spacing:-.02em">&lt;40ms</div>
+            <div style="margin-top:5px;font-size:13.5px;color:#7A8794">routing decision latency</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative">
+        <div style="position:absolute;inset:-28px;background:radial-gradient(closest-side,rgba(16,185,129,.11),rgba(16,185,129,0));border-radius:50%"></div>
+        <div style="position:relative;border:1px solid #E1E8EF;border-radius:20px;background:linear-gradient(180deg,#fff,#F7FAFC);box-shadow:0 34px 70px -46px rgba(15,42,71,.42);padding:26px 26px 22px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#8B98A5">ROUTING DECISION</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#0E7C5A">BIN 540156</span>
+          </div>
+          <svg viewBox="0 0 460 300" style="width:100%;height:auto;display:block">
+            <defs>
+              <linearGradient id="lineWarm" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9D6E3" /><stop offset="1" stop-color="#E3E9EF" /></linearGradient>
+            </defs>
+            <g stroke="url(#lineWarm)" stroke-width="1.6" fill="none">
+              <path d="M108 150 C 175 150, 175 62, 250 62" />
+              <path d="M108 150 C 175 150, 175 238, 250 238" />
+            </g>
+            <path d="M108 150 C 175 150, 175 150, 250 150" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="7 9" style="animation:dashflow 4.5s linear infinite" />
+            <rect x="14" y="126" width="94" height="48" rx="11" fill="#0F2A47" />
+            <text x="61" y="147" text-anchor="middle" fill="#fff" font-family="Instrument Sans, sans-serif" font-size="12.5" font-weight="500">Auth request</text>
+            <text x="61" y="163" text-anchor="middle" fill="#7FB3E0" font-family="IBM Plex Mono, monospace" font-size="11">$142.00</text>
+
+            <g>
+              <rect x="250" y="38" width="196" height="48" rx="11" fill="#fff" stroke="#E1E8EF" />
+              <text x="266" y="60" fill="#5B6672" font-family="Instrument Sans, sans-serif" font-size="12.5">Domestic debit rail</text>
+              <text x="266" y="76" fill="#98A4B0" font-family="IBM Plex Mono, monospace" font-size="11.5">$0.255 / txn</text>
+            </g>
+            <g>
+              <rect x="248" y="124" width="200" height="52" rx="12" fill="#F2FCF8" stroke="#9FE3C6" stroke-width="1.6" />
+              <circle cx="440" cy="150" r="5" fill="#10B981" />
+              <circle cx="440" cy="150" r="5" fill="#10B981" style="animation:pulseRing 2.4s ease-out infinite;transform-origin:440px 150px" />
+              <text x="266" y="147" fill="#0F2A47" font-family="Instrument Sans, sans-serif" font-size="12.5" font-weight="600">Least-cost BIN channel</text>
+              <text x="266" y="164" fill="#0E7C5A" font-family="IBM Plex Mono, monospace" font-size="11.5">$0.105 / txn</text>
+            </g>
+            <g>
+              <rect x="250" y="214" width="196" height="48" rx="11" fill="#fff" stroke="#E1E8EF" />
+              <text x="266" y="236" fill="#5B6672" font-family="Instrument Sans, sans-serif" font-size="12.5">Cross-border credit</text>
+              <text x="266" y="252" fill="#98A4B0" font-family="IBM Plex Mono, monospace" font-size="11.5">$0.310 / txn</text>
+            </g>
+          </svg>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px dashed #E1E8EF;display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+            <span style="font-size:13.5px;color:#5B6672">Recovered on this transaction</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:#0E7C5A;letter-spacing:-.01em">$0.150</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem" style="background:#fff;border-bottom:1px solid #E4E8ED">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:48px;align-items:end;margin-bottom:52px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#8B98A5">01 / THE PROBLEM</div>
+          <h2 style="margin:16px 0 0;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600">The cost problem acquirers face</h2>
+        </div>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#5B6672;text-wrap:pretty">Merchants are priced on a blend. Schemes charge on a BIN. Every transaction where those two disagree is margin you either earn or hand back — and today almost nobody sees the difference in time to act on it.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-left:3px solid #0F2A47;border-radius:14px;padding:26px 24px 28px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8B98A5">01</div>
+          <h3 style="margin:14px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.02em">Blended rates hide the cost structure</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">A single merchant rate averages away the expensive BINs. Portfolio margin looks healthy while individual segments quietly run at or below cost.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-left:3px solid #C08A16;border-radius:14px;padding:26px 24px 28px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8B98A5">02</div>
+          <h3 style="margin:14px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.02em">IC++ varies wildly by BIN</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Two cards presented at the same terminal can differ 2–3x in true cost depending on issuer, product tier and region. The difference never reaches the pricing model.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-left:3px solid #0E7C5A;border-radius:14px;padding:26px 24px 28px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8B98A5">03</div>
+          <h3 style="margin:14px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.02em">Manual routing doesn't scale</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Spreadsheet-maintained routing tables go stale the moment a scheme publishes new rates. Errors surface a quarter later, in reconciliation.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-left:3px solid #7A8794;border-radius:14px;padding:26px 24px 28px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8B98A5">04</div>
+          <h3 style="margin:14px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.02em">Reporting arrives too late to matter</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Monthly cost reports explain what already happened. By the time the variance is visible, the volume it applied to has settled.</p>
+        </div>
+      </div>
+
+      <div data-reveal="1" style="margin-top:28px;border:1px solid #E1E8EF;border-radius:16px;background:linear-gradient(115deg,#0F2A47,#123457 55%,#0E7C5A);color:#fff;padding:36px 34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;align-items:center">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:52px;line-height:1;letter-spacing:-.03em">2–3x</div>
+          <div style="margin-top:12px;font-size:15.5px;color:#B7CDE2;max-width:280px">cost variance between BINs accepted under the same merchant rate</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:#B7CDE2;margin-bottom:7px"><span>Cheapest BIN in segment</span><span style="font-family:'IBM Plex Mono',monospace">$0.095</span></div>
+            <div style="height:8px;border-radius:99px;background:rgba(255,255,255,.14)"><div style="height:8px;width:31%;border-radius:99px;background:#5EE0AE"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:#B7CDE2;margin-bottom:7px"><span>Segment average</span><span style="font-family:'IBM Plex Mono',monospace">$0.198</span></div>
+            <div style="height:8px;border-radius:99px;background:rgba(255,255,255,.14)"><div style="height:8px;width:64%;border-radius:99px;background:#E8B84B"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:#B7CDE2;margin-bottom:7px"><span>Most expensive BIN in segment</span><span style="font-family:'IBM Plex Mono',monospace">$0.310</span></div>
+            <div style="height:8px;border-radius:99px;background:rgba(255,255,255,.14)"><div style="height:8px;width:100%;border-radius:99px;background:#F0876B"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background:#F8FAFB;border-bottom:1px solid #E4E8ED">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px">
+      <div style="max-width:620px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#8B98A5">02 / HOW IT WORKS</div>
+        <h2 style="margin:16px 0 14px;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600">Four steps, one decision loop</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#5B6672">The platform sits beside your switch. It reads what a transaction actually costs, picks the channel, and feeds the outcome back into the next decision.</p>
+      </div>
+
+      <div style="position:relative;margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+        <div data-reveal="1" style="position:relative;background:#fff;border:1px solid #E4E8ED;border-radius:14px;padding:26px 24px 30px;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#EEF4FA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1C4C7C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" /></svg>
+            </span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B4BEC8">STEP 1</span>
+          </div>
+          <h3 style="margin:20px 0 9px;font-size:18px;font-weight:600;letter-spacing:-.02em">Ingest BIN data</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#5B6672">Scheme tables, issuer files and your own settlement history land in one normalized BIN record, refreshed as rates publish.</p>
+        </div>
+        <div data-reveal="1" style="position:relative;background:#fff;border:1px solid #E4E8ED;border-radius:14px;padding:26px 24px 30px;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#EEF4FA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1C4C7C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10" /><path d="M10 20V4" /><path d="M16 20v-7" /><path d="M22 20H2" /></svg>
+            </span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B4BEC8">STEP 2</span>
+          </div>
+          <h3 style="margin:20px 0 9px;font-size:18px;font-weight:600;letter-spacing:-.02em">Analyze cost tiers</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#5B6672">Each BIN is scored against every channel available to it, including interchange, scheme fees and downgrade risk.</p>
+        </div>
+        <div data-reveal="1" style="position:relative;background:#fff;border:1px solid #9FE3C6;border-radius:14px;padding:26px 24px 30px;box-shadow:0 20px 40px -34px rgba(14,124,90,.7);transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 44px -28px rgba(14,124,90,.6)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#EAFBF4">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h5l4 6 4-6h5" /><path d="M3 18h5l3-4.5" /><path d="M17 18h4" /><path d="M18 15l3 3-3 3" /></svg>
+            </span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#0E7C5A">STEP 3</span>
+          </div>
+          <h3 style="margin:20px 0 9px;font-size:18px;font-weight:600;letter-spacing:-.02em">Route intelligently</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#5B6672">A routing decision returns in under 40ms with the least-cost viable channel, respecting approval-rate and compliance guardrails.</p>
+        </div>
+        <div data-reveal="1" style="position:relative;background:#fff;border:1px solid #E4E8ED;border-radius:14px;padding:26px 24px 30px;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#EEF4FA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1C4C7C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3.2-6.9" /><path d="M21 4v5h-5" /><path d="M12 8v4l3 2" /></svg>
+            </span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B4BEC8">STEP 4</span>
+          </div>
+          <h3 style="margin:20px 0 9px;font-size:18px;font-weight:600;letter-spacing:-.02em">Report &amp; optimize</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#5B6672">Realized versus modelled cost is reconciled per BIN daily, and the variance retrains the next routing decision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="analyzer" style="position:relative;background:linear-gradient(180deg,#0C2340 0%,#0F2A47 62%,#11304F 100%);color:#fff">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px 104px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:end;margin-bottom:44px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#6E90B4">03 / LIVE DEMO</div>
+          <h2 style="margin:16px 0 0;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600">Analyze a BIN</h2>
+        </div>
+        <p style="margin:0;font-size:16.5px;line-height:1.6;color:#A9C2D8;text-wrap:pretty">Enter a six-digit BIN to see its cost profile, the channel we would route it through, and what the difference is worth at your volume. Sample data, real logic.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:{{ analyzerCols }};gap:22px;align-items:start">
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:28px 26px 30px;backdrop-filter:blur(6px)">
+          <label for="binInput" style="display:block;font-size:13px;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;color:#8FAECB">BIN / IIN</label>
+          <input id="binInput" inputMode="numeric" maxLength="6" placeholder="540156" value="{{ bin }}" onChange="{{ onBinChange }}" onKeyDown="{{ onKeyDown }}" style="width:100%;margin-top:10px;height:56px;padding:0 16px;border-radius:11px;border:1px solid rgba(255,255,255,.18);background:rgba(6,20,36,.55);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.16em;outline:none;transition:border-color .18s ease,box-shadow .18s ease" style-focus="border-color:#5EE0AE;box-shadow:0 0 0 4px rgba(94,224,174,.16)" />
+          <div style="min-height:20px;margin-top:9px;font-size:13px;color:{{ hintColor }}">{{ hint }}</div>
+
+          <button onClick="{{ analyze }}" disabled="{{ busy }}" style="width:100%;margin-top:12px;height:52px;border:none;border-radius:11px;background:#10B981;color:#06251A;font-family:inherit;font-size:15.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .18s ease,background .18s ease" style-hover="background:#5EE0AE;transform:translateY(-2px)">
+            <sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}">
+              <span style="width:16px;height:16px;border-radius:50%;border:2px solid rgba(6,37,26,.3);border-top-color:#06251A;animation:spin .7s linear infinite"></span>
+            </sc-if>
+            {{ buttonLabel }}
+          </button>
+
+          <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:12.5px;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;color:#6E90B4">SAMPLE BINS</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+              <sc-for list="{{ samples }}" as="s" hint-placeholder-count="6">
+                <button onClick="{{ s.pick }}" style="height:34px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#D6E5F2;font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;transition:background .16s ease,border-color .16s ease" style-hover="background:rgba(94,224,174,.14);border-color:#5EE0AE">{{ s.bin }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:12.5px;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;color:#6E90B4">MONTHLY VOLUME ON THIS BIN</div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <sc-for list="{{ volumes }}" as="v" hint-placeholder-count="3">
+                <button onClick="{{ v.pick }}" style="flex:1;height:38px;border-radius:9px;border:1px solid {{ v.border }};background:{{ v.bg }};color:{{ v.color }};font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;transition:background .16s ease" style-hover="border-color:#5EE0AE">{{ v.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative;min-height:440px;border-radius:18px;border:1px solid rgba(255,255,255,.13);background:radial-gradient(700px 320px at 88% 0%,rgba(16,185,129,.16),rgba(16,185,129,0) 62%),rgba(255,255,255,.045);padding:28px 28px 30px;overflow:hidden">
+          <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:riseIn .5s cubic-bezier(.2,.7,.3,1) both">
+              <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;justify-content:space-between">
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:30px;letter-spacing:.1em">{{ r.bin }}</div>
+                  <div style="margin-top:8px;font-size:15px;color:#A9C2D8">{{ r.issuer }}</div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <span style="height:28px;padding:0 11px;display:inline-flex;align-items:center;border-radius:7px;background:rgba(255,255,255,.08);font-size:12.5px;color:#D6E5F2">{{ r.network }}</span>
+                  <span style="height:28px;padding:0 11px;display:inline-flex;align-items:center;border-radius:7px;background:rgba(255,255,255,.08);font-size:12.5px;color:#D6E5F2">{{ r.type }}</span>
+                  <span style="height:28px;padding:0 11px;display:inline-flex;align-items:center;border-radius:7px;background:rgba(255,255,255,.08);font-size:12.5px;color:#D6E5F2">{{ r.region }}</span>
+                </div>
+              </div>
+
+              <div style="margin-top:28px;display:flex;flex-direction:column;gap:20px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:#A9C2D8"><span>Current routing cost</span><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#F0876B">{{ r.currentLabel }}</span></div>
+                  <div style="margin-top:9px;height:12px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden"><div style="height:12px;width:100%;border-radius:99px;background:linear-gradient(90deg,#E06A4A,#F0876B);transition:width .8s cubic-bezier(.2,.7,.3,1)"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:#A9C2D8"><span>Optimized routing cost</span><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#5EE0AE">{{ r.optimizedLabel }}</span></div>
+                  <div style="margin-top:9px;height:12px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden"><div style="height:12px;border-radius:99px;background:linear-gradient(90deg,#0E9F6E,#5EE0AE);transition:width .8s cubic-bezier(.2,.7,.3,1);width:{{ r.barWidth }}"></div></div>
+                </div>
+              </div>
+
+              <div style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px">
+                <div style="border:1px solid rgba(255,255,255,.11);border-radius:13px;padding:18px 16px;background:rgba(6,20,36,.35)">
+                  <div style="font-size:12.5px;color:#8FAECB">Saved per txn</div>
+                  <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:22px;color:#fff">{{ r.perTxn }}</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.11);border-radius:13px;padding:18px 16px;background:rgba(6,20,36,.35)">
+                  <div style="font-size:12.5px;color:#8FAECB">Monthly saving</div>
+                  <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:22px;color:#fff">{{ r.monthly }}</div>
+                </div>
+                <div style="border:1px solid rgba(94,224,174,.35);border-radius:13px;padding:18px 16px;background:rgba(16,185,129,.12)">
+                  <div style="font-size:12.5px;color:#A6E7CD">Annualized</div>
+                  <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:22px;color:#5EE0AE">{{ r.annual }}</div>
+                </div>
+              </div>
+
+              <div style="margin-top:22px;border-top:1px dashed rgba(255,255,255,.15);padding-top:20px;display:flex;gap:14px;align-items:flex-start">
+                <span style="flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:rgba(94,224,174,.16)">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5EE0AE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h6l4 10h6" /><path d="M17 14l3 3-3 3" /></svg>
+                </span>
+                <div>
+                  <div style="font-size:13px;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;color:#6E90B4">RECOMMENDATION — {{ r.savingsPct }} REDUCTION</div>
+                  <p style="margin:7px 0 0;font-size:15px;line-height:1.55;color:#D6E5F2">{{ r.recommendation }}</p>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;text-align:center">
+              <span style="display:grid;place-items:center;width:52px;height:52px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6E90B4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3" /><path d="M2 10h20" /><path d="M6 15h4" /></svg>
+              </span>
+              <div style="font-size:15.5px;color:#A9C2D8;max-width:320px">Enter a BIN or pick a sample to see its cost profile and routing recommendation.</div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="platform" style="background:#fff;border-bottom:1px solid #E4E8ED">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px">
+      <div style="max-width:620px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#8B98A5">04 / PLATFORM</div>
+        <h2 style="margin:16px 0 14px;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600">Built for the way acquirers actually operate</h2>
+      </div>
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20" /><path d="M17 6.5C17 4.6 14.8 4 12 4S7 4.8 7 7s2.5 3 5 3.5 5 1.3 5 3.5-2.2 3-5 3-5-.7-5-2.5" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">Immediate cost recovery</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Savings land in the first settlement cycle after go-live. No repricing conversation with merchants required.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">BIN-level precision</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Decisions are made on the six-digit BIN and card product, not on a portfolio average that hides the outliers.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" /><path d="M8 15l3-4 2.5 3L17 9" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">Transparent reporting</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Every routed transaction carries its cost rationale, so finance can reconcile the saving line by line.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-5-6 5-6" /><path d="M15 6l5 6-5 6" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">Integration in weeks</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">One REST call in the auth path, or a nightly batch if you would rather start in shadow mode against live traffic.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13H11l-1 9 8.5-11H12z" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">Real-time optimization</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Rate changes, issuer behaviour and approval outcomes update the routing model continuously, not quarterly.</p>
+        </div>
+        <div data-reveal="1" style="border:1px solid #E4E8ED;border-radius:14px;padding:28px 26px 30px;background:#FBFCFD;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease" style-hover="transform:translateY(-4px);border-color:#9FE3C6;box-shadow:0 22px 40px -30px rgba(15,42,71,.5)">
+          <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#EEF4FA">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E7C5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z" /><path d="M9 12l2 2 4-4" /></svg>
+          </span>
+          <h3 style="margin:20px 0 9px;font-size:18.5px;font-weight:600;letter-spacing:-.02em">Compliance built in</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6672">Scheme rules, regional debit mandates and merchant-choice requirements are enforced before any route is selected.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showProof }}" hint-placeholder-val="{{ true }}">
+    <section style="background:#F8FAFB;border-bottom:1px solid #E4E8ED">
+      <div style="max-width:1280px;margin:0 auto;padding:80px 32px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center;border:1px solid #E4E8ED;border-radius:18px;background:#fff;padding:44px 42px">
+          <div>
+            <div style="display:flex;align-items:center;gap:11px">
+              <span style="display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#0F2A47;color:#5EE0AE;font-family:'IBM Plex Mono',monospace;font-size:14px">NA</span>
+              <span style="font-size:15.5px;font-weight:600;letter-spacing:-.01em">Northaven Acquiring</span>
+            </div>
+            <p style="margin:22px 0 0;font-size:20px;line-height:1.5;letter-spacing:-.01em;color:#0F2A47;text-wrap:pretty">“We had modelled our BIN cost variance and assumed the ceiling was a couple of points. Routing on it recovered 12–18% of our processing cost inside one quarter.”</p>
+            <div style="margin-top:20px;font-size:14.5px;color:#7A8794">Elena Marsh — Chief Commercial Officer</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="border:1px solid #E4E8ED;border-radius:13px;padding:20px 18px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;letter-spacing:-.02em;color:#0E7C5A">15.4%</div>
+              <div style="margin-top:7px;font-size:13.5px;color:#7A8794">routing cost reduction</div>
+            </div>
+            <div style="border:1px solid #E4E8ED;border-radius:13px;padding:20px 18px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;letter-spacing:-.02em;color:#0F2A47">6 wks</div>
+              <div style="margin-top:7px;font-size:13.5px;color:#7A8794">to production routing</div>
+            </div>
+            <div style="border:1px solid #E4E8ED;border-radius:13px;padding:20px 18px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;letter-spacing:-.02em;color:#0F2A47">98.1%</div>
+              <div style="margin-top:7px;font-size:13.5px;color:#7A8794">approval rate held</div>
+            </div>
+            <div style="border:1px solid #E4E8ED;border-radius:13px;padding:20px 18px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;letter-spacing:-.02em;color:#0F2A47">41k</div>
+              <div style="margin-top:7px;font-size:13.5px;color:#7A8794">BINs re-routed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <section id="start" style="background:linear-gradient(120deg,#0C2340 0%,#123457 48%,#0E7C5A 130%);color:#fff">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:center">
+      <div>
+        <h2 style="margin:0;font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-.03em;font-weight:600">See your savings in 2 minutes</h2>
+        <p style="margin:20px 0 0;max-width:460px;font-size:17px;line-height:1.6;color:#BBD3E6;text-wrap:pretty">Send a work email and we will run your top 500 BINs against current scheme rates. You get the variance report and a routing model, no integration needed.</p>
+      </div>
+      <div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <input type="email" placeholder="you@acquirer.com" value="{{ email }}" onChange="{{ onEmailChange }}" onKeyDown="{{ onEmailKey }}" style="flex:1 1 240px;height:56px;padding:0 18px;border-radius:11px;border:1px solid rgba(255,255,255,.22);background:rgba(6,20,36,.4);color:#fff;font-size:16px;outline:none;transition:border-color .18s ease,box-shadow .18s ease" style-focus="border-color:#5EE0AE;box-shadow:0 0 0 4px rgba(94,224,174,.16)" />
+          <button onClick="{{ submitEmail }}" style="height:56px;padding:0 26px;border:none;border-radius:11px;background:#fff;color:#0F2A47;font-family:inherit;font-size:15.5px;font-weight:600;cursor:pointer;transition:transform .18s ease,background .18s ease" style-hover="background:#E9F6F1;transform:translateY(-2px)">Request the report</button>
+        </div>
+        <div style="min-height:22px;margin-top:12px;font-size:14px;color:{{ emailMsgColor }}">{{ emailMsg }}</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0A1C30;color:#8FAECB">
+    <div style="max-width:1280px;margin:0 auto;padding:44px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px;color:#fff">
+        <span style="display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:linear-gradient(140deg,#153B63,#1C4C7C)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5EE0AE" stroke-width="2.2" stroke-linecap="round"><path d="M3 17h4l3-10 3 6 2-3h6" /></svg>
+        </span>
+        <span style="font-size:15px;font-weight:600;letter-spacing:-.01em">BIN Optimizer</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:26px;font-size:14px">
+        <a href="#problem" style="color:#8FAECB" style-hover="color:#fff">Privacy</a>
+        <a href="#problem" style="color:#8FAECB" style-hover="color:#fff">Terms</a>
+        <a href="#start" style="color:#8FAECB" style-hover="color:#fff">Contact</a>
+      </div>
+      <div style="font-size:13.5px;color:#5F7B99">© 2026 BIN Optimizer. Sample data shown for demonstration.</div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;analyzerLayout&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;split&quot;, &quot;stacked&quot;], &quot;default&quot;: &quot;split&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;BIN analyzer&quot; },
+  &quot;showSocialProof&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Sections&quot; }
+}">
+const BINS = {
+  "453052": { issuer: "American Express", network: "American Express", type: "Credit", region: "United States", current: 0.275, optimized: 0.160,
+    rec: "Route through the Amex direct acquiring agreement rather than the aggregated network path. Interchange is unchanged; the aggregation markup disappears." },
+  "540156": { issuer: "Chase Bank", network: "Mastercard", type: "Debit", region: "United States", current: 0.255, optimized: 0.105,
+    rec: "Regulated debit qualifies for the domestic least-cost rail. Currently routed as credit, which forfeits the Durbin cap." },
+  "378282": { issuer: "American Express", network: "American Express", type: "Credit", region: "United States", current: 0.275, optimized: 0.165,
+    rec: "Consumer credit on a direct Amex channel. Move off the third-party gateway to remove the per-transaction service fee." },
+  "627961": { issuer: "HSBC", network: "Visa", type: "Credit", region: "Europe", current: 0.260, optimized: 0.095,
+    rec: "Intra-EEA consumer credit is interchange-capped at 0.30%. This BIN is being priced cross-border; local acquiring restores the cap." },
+  "370000": { issuer: "American Express", network: "American Express", type: "Corporate", region: "United States", current: 0.300, optimized: 0.225,
+    rec: "Commercial cards carry an irreducible floor. Enable Level 2 data submission to capture the corporate rate reduction that remains." },
+  "600000": { issuer: "Discover", network: "Discover", type: "Credit", region: "United States", current: 0.265, optimized: 0.120,
+    rec: "Discover volume is eligible for the direct network channel. Present the BIN natively instead of routing via the Diners alias." }
+};
+
+const VOLUMES = [
+  { label: "500K", value: 500000 },
+  { label: "2M", value: 2000000 },
+  { label: "10M", value: 10000000 }
+];
+
+const money = (n, d) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const big = (n) => n >= 1000000 ? "$" + (n / 1000000).toFixed(2) + "M" : n >= 1000 ? "$" + Math.round(n / 1000) + "k" : money(n, 0);
+
+class Component extends DCLogic {
+  state = { bin: "", busy: false, result: null, error: "", volume: 2000000, email: "", emailMsg: "", emailOk: false };
+
+  componentDidMount() {
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    if (!("IntersectionObserver" in window)) return;
+    const reveal = (el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      io.unobserve(el);
+    };
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting || e.boundingClientRect.top < window.innerHeight) reveal(e.target);
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    const sweep = () => {
+      els.forEach(el => {
+        if (el.style.opacity === "0" && el.getBoundingClientRect().top < window.innerHeight) reveal(el);
+      });
+    };
+    window.addEventListener("scroll", sweep, { passive: true });
+    window.addEventListener("resize", sweep, { passive: true });
+    els.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) return;
+      el.style.opacity = "0";
+      el.style.transform = "translateY(18px)";
+      el.style.transition = "opacity .6s ease " + ((i % 4) * 70) + "ms, transform .6s cubic-bezier(.2,.7,.3,1) " + ((i % 4) * 70) + "ms, box-shadow .22s ease, border-color .22s ease";
+      io.observe(el);
+    });
+  }
+
+  setBin = (v) => this.setState({ bin: v.replace(/\D/g, "").slice(0, 6), error: "" });
+
+  analyze = () => {
+    const bin = this.state.bin.trim();
+    if (bin.length !== 6) { this.setState({ error: "Enter all six digits of the BIN." }); return; }
+    if (!BINS[bin]) { this.setState({ error: "Not in the sample set — try one of the BINs below." }); return; }
+    this.setState({ busy: true, error: "", result: null });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ busy: false, result: bin }), 900);
+  };
+
+  run = (bin) => { this.setState({ bin }, this.analyze); };
+
+  submitEmail = () => {
+    const e = this.state.email.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+    this.setState({ emailOk: ok, emailMsg: ok ? "Received. Your BIN variance report is on its way to " + e + "." : "Enter a valid work email address." });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const d = s.result ? BINS[s.result] : null;
+    let r = null;
+    if (d) {
+      const delta = d.current - d.optimized;
+      r = {
+        bin: s.result, issuer: d.issuer, network: d.network, type: d.type, region: d.region,
+        currentLabel: money(d.current, 3) + " / txn",
+        optimizedLabel: money(d.optimized, 3) + " / txn",
+        barWidth: Math.round((d.optimized / d.current) * 100) + "%",
+        perTxn: money(delta, 3),
+        monthly: big(delta * s.volume),
+        annual: big(delta * s.volume * 12),
+        savingsPct: Math.round((delta / d.current) * 100) + "%",
+        recommendation: d.rec
+      };
+    }
+    return {
+      bin: s.bin,
+      busy: s.busy,
+      buttonLabel: s.busy ? "Analyzing" : "Analyze BIN",
+      hasResult: !!r && !s.busy,
+      showEmpty: !r || s.busy,
+      r: r || {},
+      hint: s.error || (s.busy ? "Scoring channels for this BIN…" : "Six digits. Try 540156 or 627961."),
+      hintColor: s.error ? "#F0876B" : "#6E90B4",
+      analyzerCols: this.props.analyzerLayout === "stacked" ? "1fr" : "minmax(300px,0.82fr) minmax(360px,1.18fr)",
+      showProof: this.props.showSocialProof !== false,
+      samples: Object.keys(BINS).map(b => ({ bin: b, pick: () => this.run(b) })),
+      volumes: VOLUMES.map(v => ({
+        label: v.label + " txn",
+        pick: () => this.setState({ volume: v.value }),
+        border: s.volume === v.value ? "#5EE0AE" : "rgba(255,255,255,.16)",
+        bg: s.volume === v.value ? "rgba(94,224,174,.16)" : "rgba(255,255,255,.05)",
+        color: s.volume === v.value ? "#5EE0AE" : "#D6E5F2"
+      })),
+      onBinChange: (e) => this.setBin(e.target.value),
+      onKeyDown: (e) => { if (e.key === "Enter") this.analyze(); },
+      analyze: this.analyze,
+      email: s.email,
+      onEmailChange: (e) => this.setState({ email: e.target.value, emailMsg: "" }),
+      onEmailKey: (e) => { if (e.key === "Enter") this.submitEmail(); },
+      submitEmail: this.submitEmail,
+      emailMsg: s.emailMsg,
+      emailMsgColor: s.emailOk ? "#5EE0AE" : "#F0876B"
+    };
+  }
+}
+
+</script>
+</body>
+</html>
